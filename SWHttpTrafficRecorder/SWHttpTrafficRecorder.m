@@ -51,19 +51,20 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shared = [[self alloc] _init];
-        shared.isRecording = NO;
-        shared.fileNo = 0;
-        shared.runTimeStamp = 0;
-        shared.fileCreationQueue = [[NSOperationQueue alloc] init];
-        shared.recordingFormat = SWHTTPTrafficRecordingFormatMocktail;
-        
-        shared.fileManager = [NSFileManager defaultManager];
     });
     return shared;
 }
 
 - (instancetype)_init {
-    return [super init];
+    if (self = [super init]) {
+        _isRecording = NO;
+        _fileNo = 0;
+        _runTimeStamp = 0;
+        _fileCreationQueue = [[NSOperationQueue alloc] init];
+        _recordingFormat = SWHTTPTrafficRecordingFormatMocktail;
+        _fileManager = [NSFileManager defaultManager];
+    }
+    return self;
 }
 
 - (instancetype)init {

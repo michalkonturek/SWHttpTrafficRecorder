@@ -41,6 +41,8 @@ OCMVerifyAll((id)self.mockDate);\
 // dependencies
 @property (nonatomic, strong) NSFileManager* fileManager;
 
+- (instancetype)_init;
+
 @end
 
 @interface SWHttpTrafficRecorderTests : XCTestCase
@@ -62,7 +64,7 @@ OCMVerifyAll((id)self.mockDate);\
     self.mockURLProtocol = OCMClassMock([NSURLProtocol class]);
     self.mockDate = OCMClassMock([NSDate class]);
     
-    self.sut = [SWHttpTrafficRecorder sharedRecorder];
+    self.sut = [[SWHttpTrafficRecorder alloc] _init];
     self.sut.fileManager = self.mockFileManager;
 }
 
@@ -73,9 +75,10 @@ OCMVerifyAll((id)self.mockDate);\
     [super tearDown];
 }
 
-- (void)test_init_isSingleton {
+- (void)test_sharedInstance_isSingleton {
+    id first = [SWHttpTrafficRecorder sharedRecorder];
     id other = [SWHttpTrafficRecorder sharedRecorder];
-    XCTAssertEqual(self.sut, other);
+    XCTAssertEqual(first, other);
 }
 
 - (void)test_init {
@@ -83,14 +86,17 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertTrue(self.sut.fileNo == 0);
     XCTAssertTrue(self.sut.runTimeStamp == 0);
     XCTAssertTrue(self.sut.recordingFormat == SWHTTPTrafficRecordingFormatMocktail);
+    
     XCTAssertNotNil(self.sut.fileCreationQueue);
-    XCTAssertEqual(self.sut.fileManager, self.mockFileManager);
+    XCTAssertNotNil(self.sut.fileManager);
 }
 
 - (void)test_init_shouldUserDesignatedInitializer {
+    // given
     id sut = nil;
     BOOL didThrowException = NO;
     
+    // when
     @try {
         sut = [[SWHttpTrafficRecorder alloc] init];
     } @catch (NSException *exception) {
@@ -99,6 +105,7 @@ OCMVerifyAll((id)self.mockDate);\
         didThrowException = YES;
     }
     
+    // then
     XCTAssertTrue(didThrowException);
     XCTAssertNil(sut);
 }
@@ -385,6 +392,17 @@ OCMVerifyAll((id)self.mockDate);\
     
     VERIFY_ALL
 }
+
+//- (void)test_stopRecording_whenRecordingNotStarted {
+//    // given
+//    XCTAssertFalse(self.sut.isRecording);
+//    
+//    // when
+//    [self.sut stopRecording];
+//    
+//    // then
+//    XCTAssertFalse(self.sut.isRecording);
+//}
 
 - (void)test_fileExtensionMapping {
     id expected = @{
