@@ -41,6 +41,7 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 @property(nonatomic, strong) NSDictionary *fileExtensionMapping;
 
 // dependencies
+@property (nonatomic, strong) NSFileManager* fileManager;
 
 @end
 
@@ -74,48 +75,53 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
                                  userInfo:nil];
 }
 
-- (BOOL)startRecording{
+- (BOOL)startRecording {
     return [self startRecordingAtPath:nil forSessionConfiguration:nil error:nil];
 }
 
-- (BOOL)startRecordingAtPath:(NSString *)recordingPath error:(NSError **) error {
+- (BOOL)startRecordingAtPath:(NSString *)recordingPath
+                       error:(NSError **)error {
     return [self startRecordingAtPath:recordingPath forSessionConfiguration:nil error:error];
 }
 
-- (BOOL)startRecordingAtPath:(NSString *)recordingPath forSessionConfiguration:(NSURLSessionConfiguration *)sessionConfig error:(NSError **) error {
-    if(!self.isRecording){
-        if(recordingPath){
-            self.recordingPath = recordingPath;
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            if(![fileManager fileExistsAtPath:recordingPath]){
-                NSError *bError = nil;
-                if(![fileManager createDirectoryAtPath:recordingPath withIntermediateDirectories:YES attributes:nil error:&bError]){
-                    if(error){
-                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathFailedToCreate userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath], NSUnderlyingErrorKey: bError}];
-                    }
-                    return NO;
-                }
-            } else if(![fileManager isWritableFileAtPath:recordingPath]){
-                if (error){
-                    *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathNotWritable userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' is not writable.", recordingPath]}];
-                }
-                return NO;
-            }
-        } else {
-            self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-        }
-
-        self.fileNo = 0;
-        self.runTimeStamp = (NSUInteger)[NSDate timeIntervalSinceReferenceDate];
+- (BOOL)startRecordingAtPath:(NSString *)recordingPath
+     forSessionConfiguration:(NSURLSessionConfiguration *)sessionConfig
+                       error:(NSError **)error {
+    
+    if (!self.isRecording){
+//        if (recordingPath){
+//            self.recordingPath = recordingPath;
+//            NSFileManager *fileManager = [NSFileManager defaultManager];
+//            if(![fileManager fileExistsAtPath:recordingPath]){
+//                NSError *bError = nil;
+//                if(![fileManager createDirectoryAtPath:recordingPath withIntermediateDirectories:YES attributes:nil error:&bError]){
+//                    if(error){
+//                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathFailedToCreate userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath], NSUnderlyingErrorKey: bError}];
+//                    }
+//                    return NO;
+//                }
+//            } else if(![fileManager isWritableFileAtPath:recordingPath]){
+//                if (error){
+//                    *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathNotWritable userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' is not writable.", recordingPath]}];
+//                }
+//                return NO;
+//            }
+//        } else {
+//            self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+//        }
+//
+//        self.fileNo = 0;
+//        self.runTimeStamp = (NSUInteger)[NSDate timeIntervalSinceReferenceDate];
     }
-    if(sessionConfig){
-        self.sessionConfig = sessionConfig;
-        NSMutableOrderedSet *mutableProtocols = [[NSMutableOrderedSet alloc] initWithArray:sessionConfig.protocolClasses];
-        [mutableProtocols insertObject:[SWRecordingProtocol class] atIndex:0];
-        sessionConfig.protocolClasses = [mutableProtocols array];
+    
+    if (sessionConfig){
+//        self.sessionConfig = sessionConfig;
+//        NSMutableOrderedSet *mutableProtocols = [[NSMutableOrderedSet alloc] initWithArray:sessionConfig.protocolClasses];
+//        [mutableProtocols insertObject:[SWRecordingProtocol class] atIndex:0];
+//        sessionConfig.protocolClasses = [mutableProtocols array];
     }
     else {
-        [NSURLProtocol registerClass:[SWRecordingProtocol class]];
+//        [NSURLProtocol registerClass:[SWRecordingProtocol class]];
     }
 
     self.isRecording = YES;

@@ -43,6 +43,8 @@
 
 @property (nonatomic, strong) SWHttpTrafficRecorder *sut;
 
+@property (nonatomic, strong) NSFileManager *mockFileManager;
+
 @end
 
 @implementation SWHttpTrafficRecorderTests
@@ -80,6 +82,13 @@
     
     XCTAssertTrue(didThrowException);
     XCTAssertNil(sut);
+}
+
+- (void)test_startRecordingAtPath_whenNoPathAndNoSessionAndRecording {
+    
+    BOOL result = [self.sut startRecordingAtPath:nil forSessionConfiguration:nil error:nil];
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
 }
 
 @end
