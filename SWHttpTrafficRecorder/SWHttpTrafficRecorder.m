@@ -105,17 +105,17 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
                             withIntermediateDirectories:YES
                                              attributes:nil
                                                   error:&bError]) {
-//                    if (error) {
-//                        id key = [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath];
-//                        id info = @{
-//                                    NSLocalizedDescriptionKey : key,
-//                                    NSUnderlyingErrorKey : bError
-//                                    };
-//                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain
-//                                                     code:SWHttpTrafficRecorderErrorPathFailedToCreate
-//                                                 userInfo:info
-//                                  ];
-//                    }
+                    if (error) {
+                        id key = [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath];
+                        id info = @{
+                                    NSLocalizedDescriptionKey : key,
+                                    NSUnderlyingErrorKey : bError
+                                    };
+                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain
+                                                     code:SWHttpTrafficRecorderErrorPathFailedToCreate
+                                                 userInfo:info
+                                  ];
+                    }
                     return NO;
                 }
             }

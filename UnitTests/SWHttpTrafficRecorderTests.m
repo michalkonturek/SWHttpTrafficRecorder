@@ -323,4 +323,41 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotDoesNotExist_createsDirectoryWithError {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    id expectedPath = @"expectedPath";
+    [OCMExpect([self.mockFileManager fileExistsAtPath:expectedPath]) andReturnValue:@NO];
+    
+    NSError* error = nil;
+    NSError* stubError = OCMClassMock([NSError class]);
+    
+    [OCMExpect([self.mockFileManager createDirectoryAtPath:expectedPath
+                               withIntermediateDirectories:YES
+                                                attributes:nil
+                                                     error:[OCMArg setTo:stubError]]) andReturnValue:@NO];
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:expectedPath
+                         forSessionConfiguration:nil
+                                           error:&error
+                   ];
+    
+    // then
+    XCTAssertFalse(result);
+    XCTAssertFalse(self.sut.isRecording);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertEqualObjects(self.sut.recordingPath, expectedPath);
+    
+    XCTAssertEqualObjects(error.domain, @"RECORDER_ERROR_DOMAIN");
+    XCTAssertTrue(error.code == SWHttpTrafficRecorderErrorPathFailedToCreate);
+    XCTAssertEqualObjects(error.userInfo[NSLocalizedDescriptionKey], @"Path 'expectedPath' does not exist and error while creating it.");
+    XCTAssertEqual(error.userInfo[NSUnderlyingErrorKey], stubError);
+    
+    VERIFY_ALL
+}
+
 @end
