@@ -39,25 +39,39 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 @property(nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
 @property(nonatomic, assign) NSUInteger runTimeStamp;
 @property(nonatomic, strong) NSDictionary *fileExtensionMapping;
+
+// dependencies
+
 @end
 
 @interface SWRecordingProtocol : NSURLProtocol @end
 
 @implementation SWHttpTrafficRecorder
 
-+ (instancetype)sharedRecorder
-{
++ (instancetype)sharedRecorder {
     static SWHttpTrafficRecorder *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shared = self.new;
+        shared = [[self alloc] _init];
         shared.isRecording = NO;
         shared.fileNo = 0;
-        shared.fileCreationQueue = [[NSOperationQueue alloc] init];
         shared.runTimeStamp = 0;
+        shared.fileCreationQueue = [[NSOperationQueue alloc] init];
         shared.recordingFormat = SWHTTPTrafficRecordingFormatMocktail;
     });
     return shared;
+}
+
+- (instancetype)_init {
+    return [super init];
+}
+
+- (instancetype)init {
+    id msg = @"%@: Use designated initializer.";
+    id reason = [NSString stringWithFormat:msg, NSStringFromSelector(_cmd)];
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:reason
+                                 userInfo:nil];
 }
 
 - (BOOL)startRecording{

@@ -18,11 +18,30 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-//  Created by Ashton Williams on 6/05/2016.
+//  Created by Michal Konturek on 7/25/2016.
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
+
+#import "SWHttpTrafficRecorder.h"
+
+@interface SWHttpTrafficRecorder ()
+
+//@property(nonatomic, assign, readwrite) BOOL isRecording;
+//@property(nonatomic, strong) NSString *recordingPath;
+@property(nonatomic, assign) int fileNo;
+@property(nonatomic, assign) NSUInteger runTimeStamp;
+
+@property(nonatomic, strong) NSOperationQueue *fileCreationQueue;
+//@property(nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
+
+//@property(nonatomic, strong) NSDictionary *fileExtensionMapping;
+
+@end
 
 @interface SWHttpTrafficRecorderTests : XCTestCase
+
+@property (nonatomic, strong) SWHttpTrafficRecorder *sut;
 
 @end
 
@@ -30,24 +49,37 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    self.sut = [SWHttpTrafficRecorder sharedRecorder];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
+- (void)test_init_isSingleton {
+    id other = [SWHttpTrafficRecorder sharedRecorder];
+    XCTAssertEqual(self.sut, other);
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)test_init {
+    XCTAssertFalse(self.sut.isRecording);
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertTrue(self.sut.runTimeStamp == 0);
+    XCTAssertTrue(self.sut.recordingFormat == SWHTTPTrafficRecordingFormatMocktail);
+    XCTAssertNotNil(self.sut.fileCreationQueue);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)test_init_shouldUserDesignatedInitializer {
+    id sut = nil;
+    BOOL didThrowException = NO;
+    
+    @try {
+        sut = [[SWHttpTrafficRecorder alloc] init];
+    } @catch (NSException *exception) {
+        id expected = @"init: Use designated initializer.";
+        XCTAssertEqualObjects(exception.reason, expected);
+        didThrowException = YES;
+    }
+    
+    XCTAssertTrue(didThrowException);
+    XCTAssertNil(sut);
 }
 
 @end
