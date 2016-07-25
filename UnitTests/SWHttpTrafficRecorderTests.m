@@ -121,7 +121,7 @@ OCMVerifyAll((id)self.mockDate);\
     self.sut.isRecording = YES;
     
     // expect
-    OCMExpect([(id)self.mockURLProtocol registerClass:OCMOCK_ANY]);
+    OCMExpect([(id)self.mockURLProtocol registerClass:[SWRecordingProtocol class]]);
     
     // when
     BOOL result = [self.sut startRecordingAtPath:nil
@@ -407,6 +407,21 @@ OCMVerifyAll((id)self.mockDate);\
     
     // then
     XCTAssertFalse(self.sut.isRecording);
+}
+
+- (void)test_stopRecording_whenRecording_andNoSessionGiven {
+    // given
+    [self.sut startRecording];
+    
+    // expect
+    OCMExpect([(id)self.mockURLProtocol unregisterClass:[SWRecordingProtocol class]]);
+    
+    // when
+    [self.sut stopRecording];
+    
+    // then
+    XCTAssertFalse(self.sut.isRecording);
+    VERIFY_ALL
 }
 
 - (void)test_fileExtensionMapping {
