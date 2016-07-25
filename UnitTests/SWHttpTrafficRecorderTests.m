@@ -24,6 +24,7 @@
 #import <OCMock/OCMock.h>
 
 #import "SWHttpTrafficRecorder.h"
+#import "SWRecordingProtocol.h"
 
 #define VERIFY_ALL \
 OCMVerifyAll((id)self.mockFileManager);\
@@ -33,11 +34,11 @@ OCMVerifyAll((id)self.mockURLProtocol);\
 
 //@property(nonatomic, assign, readwrite) BOOL isRecording;
 //@property(nonatomic, strong) NSString *recordingPath;
-@property(nonatomic, assign) int fileNo;
-@property(nonatomic, assign) NSUInteger runTimeStamp;
+@property (nonatomic, assign) int fileNo;
+//@property (nonatomic, assign) NSUInteger runTimeStamp;
 
-@property(nonatomic, strong) NSOperationQueue *fileCreationQueue;
-//@property(nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
+//@property (nonatomic, strong) NSOperationQueue *fileCreationQueue;
+@property (nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
 
 //@property(nonatomic, strong) NSDictionary *fileExtensionMapping;
 
@@ -102,12 +103,15 @@ OCMVerifyAll((id)self.mockURLProtocol);\
     XCTAssertNil(sut);
 }
 
-- (void)test_startRecordingAtPath_whenNoPathAndNoSessionAndRecording {
+- (void)test_startRecordingAtPath_whenRecording_andNoPathAndNoSession {
     // expect
     OCMExpect([(id)self.mockURLProtocol registerClass:OCMOCK_ANY]);
     
     // when
-    BOOL result = [self.sut startRecordingAtPath:nil forSessionConfiguration:nil error:nil];
+    BOOL result = [self.sut startRecordingAtPath:nil
+                         forSessionConfiguration:nil
+                                           error:nil
+                   ];
     
     // then
     XCTAssertTrue(result);
@@ -115,8 +119,31 @@ OCMVerifyAll((id)self.mockURLProtocol);\
     VERIFY_ALL
 }
 
-//- (void)test_startRecordingAtPath_whenNoPathAndNoSessionAndRecording {
-//    
-//}
+- (void)test_startRecordingAtPath_whenRecording_andNoPath {
+    
+    // given
+    NSURLSessionConfiguration* stubSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    id stubURLProtocol = OCMStub([NSURLProtocol class]);
+    id protocols = @[stubURLProtocol, stubURLProtocol];
+    stubSessionConfig.protocolClasses = protocols;
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:nil
+                         forSessionConfiguration:stubSessionConfig
+                                           error:nil
+                   ];
+    
+    // then
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
+    
+    XCTAssertEqual(self.sut.sessionConfig, stubSessionConfig);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses.count == 2);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[0] == [SWRecordingProtocol class]);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
+    
+    VERIFY_ALL
+}
 
 @end
