@@ -110,10 +110,14 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 //                }
             }
             else if (![fileManager isWritableFileAtPath:recordingPath]) {
-//                if (error){
-//                    *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathNotWritable userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' is not writable.", recordingPath]}];
-//                }
-//                return NO;
+                if (error){
+                    id key = [NSString stringWithFormat:@"Path '%@' is not writable.", recordingPath];
+                    id info = @{NSLocalizedDescriptionKey : key};
+                    *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain
+                                                 code:SWHttpTrafficRecorderErrorPathNotWritable
+                                             userInfo:info];
+                }
+                return NO;
             }
         } else {
             self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];

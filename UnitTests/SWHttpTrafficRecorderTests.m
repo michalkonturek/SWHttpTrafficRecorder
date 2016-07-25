@@ -235,4 +235,35 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotWriteable {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    id expectedPath = @"expectedPath";
+    [OCMExpect([self.mockFileManager fileExistsAtPath:expectedPath]) andReturnValue:@YES];
+    [OCMExpect([self.mockFileManager isWritableFileAtPath:expectedPath]) andReturnValue:@NO];
+    
+    NSError* error = nil;
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:expectedPath
+                         forSessionConfiguration:nil
+                                           error:&error
+                   ];
+    
+    // then
+    XCTAssertFalse(result);
+    XCTAssertFalse(self.sut.isRecording);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertEqualObjects(self.sut.recordingPath, expectedPath);
+    
+    XCTAssertEqualObjects(error.domain, @"RECORDER_ERROR_DOMAIN");
+    XCTAssertTrue(error.code == SWHttpTrafficRecorderErrorPathNotWritable);
+    XCTAssertEqualObjects(error.userInfo[NSLocalizedDescriptionKey], @"Path 'expectedPath' is not writable.");
+    
+    VERIFY_ALL
+}
+
 @end
