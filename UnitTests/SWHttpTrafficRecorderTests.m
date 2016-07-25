@@ -398,16 +398,16 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-//- (void)test_stopRecording_whenRecordingNotStarted {
-//    // given
-//    XCTAssertFalse(self.sut.isRecording);
-//    
-//    // when
-//    [self.sut stopRecording];
-//    
-//    // then
-//    XCTAssertFalse(self.sut.isRecording);
-//}
+- (void)test_stopRecording_whenRecordingNotStarted {
+    // given
+    XCTAssertFalse(self.sut.isRecording);
+    
+    // when
+    [self.sut stopRecording];
+    
+    // then
+    XCTAssertFalse(self.sut.isRecording);
+}
 
 - (void)test_fileExtensionMapping {
     id expected = @{
