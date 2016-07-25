@@ -424,6 +424,43 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
+- (void)test_stopRecording_whenRecording_andSessionGiven {
+    // given
+    self.sut.isRecording = YES;
+    
+    NSURLSessionConfiguration* stubSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    id stubURLProtocol = OCMStub([NSURLProtocol class]);
+    id protocols = @[stubURLProtocol, stubURLProtocol];
+    stubSessionConfig.protocolClasses = protocols;
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:nil
+                         forSessionConfiguration:stubSessionConfig
+                                           error:nil
+                   ];
+    
+    // then
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
+    
+    XCTAssertEqual(self.sut.sessionConfig, stubSessionConfig);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses.count == 2);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[0] == [SWRecordingProtocol class]);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
+    
+    VERIFY_ALL
+    
+    // when
+    [self.sut stopRecording];
+    
+    // then
+    XCTAssertFalse(self.sut.isRecording);
+    XCTAssertNil(self.sut.sessionConfig);
+    XCTAssertTrue(stubSessionConfig.protocolClasses.count == 1);
+    XCTAssertTrue(stubSessionConfig.protocolClasses[0] == stubURLProtocol);
+}
+
 - (void)test_fileExtensionMapping {
     id expected = @{
                     @"application/json": @"json",
