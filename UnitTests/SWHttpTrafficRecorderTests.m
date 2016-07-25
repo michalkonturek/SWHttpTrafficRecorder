@@ -386,4 +386,29 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
+- (void)test_fileExtensionMapping {
+    id expected = @{
+                    @"application/json": @"json",
+                    @"image/png": @"png",
+                    @"image/jpeg" : @"jpg",
+               
+                    @"image/gif": @"gif",
+                    @"image/bmp": @"bmp",
+                    @"text/plain": @"txt",
+               
+                    @"text/css": @"css",
+                    @"text/html": @"html",
+                    @"application/javascript": @"js",
+               
+                    @"text/javascript": @"js",
+                    @"application/xml": @"xml",
+                    @"text/xml": @"xml",
+               
+                    @"image/tiff": @"tiff",
+                    @"image/x-tiff": @"tiff"
+               };
+    id result = [self.sut fileExtensionMapping];
+    XCTAssertEqualObjects(result, expected);
+}
+
 @end

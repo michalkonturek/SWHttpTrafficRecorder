@@ -204,7 +204,8 @@ FOUNDATION_EXPORT NSString * const SWHttpTrafficRecorderErrorDomain;
 @property (nonatomic, assign) NSUInteger runTimeStamp;
 @property (nonatomic, strong) NSString *recordingPath;
 @property (nonatomic, strong) NSOperationQueue *fileCreationQueue;
-@property (nonatomic, strong) NSDictionary *fileExtensionMapping;
+//@property (nonatomic, strong) NSDictionary *fileExtensionMapping;
+- (NSDictionary *)fileExtensionMapping;
 
 - (int)increaseFileNo;
 

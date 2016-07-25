@@ -167,17 +167,32 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
     }
 }
 
-- (NSDictionary *)fileExtensionMapping{
-    if(!_fileExtensionMapping){
-        _fileExtensionMapping = @{
-                                  @"application/json": @"json", @"image/png": @"png", @"image/jpeg" : @"jpg",
-                                  @"image/gif": @"gif", @"image/bmp": @"bmp", @"text/plain": @"txt",
-                                  @"text/css": @"css", @"text/html": @"html", @"application/javascript": @"js",
-                                  @"text/javascript": @"js", @"application/xml": @"xml", @"text/xml": @"xml",
-                                  @"image/tiff": @"tiff", @"image/x-tiff": @"tiff"
-                                  };
-    }
-    return _fileExtensionMapping;
+- (NSDictionary *)fileExtensionMapping {
+    static NSDictionary *mapped = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mapped = @{
+                   @"application/json": @"json",
+                   @"image/png": @"png",
+                   @"image/jpeg" : @"jpg",
+                   
+                   @"image/gif": @"gif",
+                   @"image/bmp": @"bmp",
+                   @"text/plain": @"txt",
+                   
+                   @"text/css": @"css",
+                   @"text/html": @"html",
+                   @"application/javascript": @"js",
+                   
+                   @"text/javascript": @"js",
+                   @"application/xml": @"xml",
+                   @"text/xml": @"xml",
+                   
+                   @"image/tiff": @"tiff",
+                   @"image/x-tiff": @"tiff"
+                   };
+    });
+    return mapped;
 }
 
 @end
