@@ -411,4 +411,10 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertEqualObjects(result, expected);
 }
 
+- (void)test_fileExtensionMapping_returnsTheSameDictionary {
+    id result1 = [self.sut fileExtensionMapping];
+    id result2 = [self.sut fileExtensionMapping];
+    XCTAssertEqual(result1, result2);
+}
+
 @end
