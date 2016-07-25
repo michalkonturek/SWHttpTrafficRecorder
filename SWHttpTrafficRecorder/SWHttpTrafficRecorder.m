@@ -62,6 +62,8 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
         shared.runTimeStamp = 0;
         shared.fileCreationQueue = [[NSOperationQueue alloc] init];
         shared.recordingFormat = SWHTTPTrafficRecordingFormatMocktail;
+        
+        shared.fileManager = [NSFileManager defaultManager];
     });
     return shared;
 }
@@ -93,9 +95,12 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
     
     if (!self.isRecording){
         if (recordingPath){
-//            self.recordingPath = recordingPath;
+            self.recordingPath = recordingPath;
+            
 //            NSFileManager *fileManager = [NSFileManager defaultManager];
-//            if(![fileManager fileExistsAtPath:recordingPath]){
+            NSFileManager* fileManager = self.fileManager;
+            
+            if (![fileManager fileExistsAtPath:recordingPath]) {
 //                NSError *bError = nil;
 //                if(![fileManager createDirectoryAtPath:recordingPath withIntermediateDirectories:YES attributes:nil error:&bError]){
 //                    if(error){
@@ -103,12 +108,13 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 //                    }
 //                    return NO;
 //                }
-//            } else if(![fileManager isWritableFileAtPath:recordingPath]){
+            }
+            else if (![fileManager isWritableFileAtPath:recordingPath]) {
 //                if (error){
 //                    *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathNotWritable userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' is not writable.", recordingPath]}];
 //                }
 //                return NO;
-//            }
+            }
         } else {
             self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
         }

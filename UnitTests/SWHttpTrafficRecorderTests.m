@@ -89,6 +89,7 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertTrue(self.sut.runTimeStamp == 0);
     XCTAssertTrue(self.sut.recordingFormat == SWHTTPTrafficRecordingFormatMocktail);
     XCTAssertNotNil(self.sut.fileCreationQueue);
+    XCTAssertEqual(self.sut.fileManager, self.mockFileManager);
 }
 
 - (void)test_init_shouldUserDesignatedInitializer {
@@ -107,7 +108,7 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertNil(sut);
 }
 
-- (void)test_startRecordingAtPath_whenRecording_andNoPathAndNoSession {
+- (void)test_startRecordingAtPath_whenRecording_andNoPathAndNoSessionGiven {
     
     // given
     self.sut.isRecording = YES;
@@ -127,7 +128,7 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-- (void)test_startRecordingAtPath_whenRecording_andNoPath {
+- (void)test_startRecordingAtPath_whenRecording_andNoPathGiven {
     
     // given
     self.sut.isRecording = YES;
@@ -156,7 +157,7 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-- (void)test_startRecordingAtPath_whenNotRecording_andNoPath {
+- (void)test_startRecordingAtPath_whenNotRecording_andNoPathGiven {
     
     // given
     self.sut.isRecording = NO;
@@ -167,9 +168,8 @@ OCMVerifyAll((id)self.mockDate);\
     stubSessionConfig.protocolClasses = protocols;
     
     // expect
-    NSTimeInterval expected = 1234;
-    [OCMExpect(ClassMethod([self.mockDate timeIntervalSinceReferenceDate])) andReturnValue:@(expected)];
-//    OCMStub(ClassMethod([dateMock timeIntervalSinceReferenceDate])).andReturn(NSTimeIntervalSince1970);
+    NSTimeInterval expectedRunTimeStamp = 1234;
+    [OCMExpect(ClassMethod([self.mockDate timeIntervalSinceReferenceDate])) andReturnValue:@(expectedRunTimeStamp)];
     
     // when
     BOOL result = [self.sut startRecordingAtPath:nil
@@ -187,8 +187,50 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
     
     XCTAssertTrue(self.sut.fileNo == 0);
-    XCTAssertTrue(self.sut.runTimeStamp == expected);
+    XCTAssertTrue(self.sut.runTimeStamp == expectedRunTimeStamp);
+    
     XCTAssertTrue([self.sut.recordingPath hasSuffix:@"/data/Library/Caches"]);
+    
+    VERIFY_ALL
+}
+
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGiven {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    NSURLSessionConfiguration* stubSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    id stubURLProtocol = OCMStub([NSURLProtocol class]);
+    id protocols = @[stubURLProtocol, stubURLProtocol];
+    stubSessionConfig.protocolClasses = protocols;
+    
+    // expect
+    NSTimeInterval expectedRunTimeStamp = 1234;
+    [OCMExpect(ClassMethod([self.mockDate timeIntervalSinceReferenceDate])) andReturnValue:@(expectedRunTimeStamp)];
+    
+    id expectedPath = @"expectedPath";
+    [OCMExpect([self.mockFileManager fileExistsAtPath:expectedPath]) andReturnValue:@YES];
+    [OCMExpect([self.mockFileManager isWritableFileAtPath:expectedPath]) andReturnValue:@YES];
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:expectedPath
+                         forSessionConfiguration:stubSessionConfig
+                                           error:nil
+                   ];
+    
+    // then
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
+    
+    XCTAssertEqual(self.sut.sessionConfig, stubSessionConfig);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses.count == 2);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[0] == [SWRecordingProtocol class]);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertTrue(self.sut.runTimeStamp == expectedRunTimeStamp);
+    
+    XCTAssertEqualObjects(self.sut.recordingPath, expectedPath);
     
     VERIFY_ALL
 }
