@@ -97,17 +97,27 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
         if (recordingPath){
             self.recordingPath = recordingPath;
             
-//            NSFileManager *fileManager = [NSFileManager defaultManager];
             NSFileManager* fileManager = self.fileManager;
             
             if (![fileManager fileExistsAtPath:recordingPath]) {
-//                NSError *bError = nil;
-//                if(![fileManager createDirectoryAtPath:recordingPath withIntermediateDirectories:YES attributes:nil error:&bError]){
-//                    if(error){
-//                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain code:SWHttpTrafficRecorderErrorPathFailedToCreate userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath], NSUnderlyingErrorKey: bError}];
+                NSError *bError = nil;
+                if (![fileManager createDirectoryAtPath:recordingPath
+                            withIntermediateDirectories:YES
+                                             attributes:nil
+                                                  error:&bError]) {
+//                    if (error) {
+//                        id key = [NSString stringWithFormat:@"Path '%@' does not exist and error while creating it.", recordingPath];
+//                        id info = @{
+//                                    NSLocalizedDescriptionKey : key,
+//                                    NSUnderlyingErrorKey : bError
+//                                    };
+//                        *error = [NSError errorWithDomain:SWHttpTrafficRecorderErrorDomain
+//                                                     code:SWHttpTrafficRecorderErrorPathFailedToCreate
+//                                                 userInfo:info
+//                                  ];
 //                    }
-//                    return NO;
-//                }
+                    return NO;
+                }
             }
             else if (![fileManager isWritableFileAtPath:recordingPath]) {
                 if (error){

@@ -266,4 +266,61 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotWriteable_noError {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    id expectedPath = @"expectedPath";
+    [OCMExpect([self.mockFileManager fileExistsAtPath:expectedPath]) andReturnValue:@YES];
+    [OCMExpect([self.mockFileManager isWritableFileAtPath:expectedPath]) andReturnValue:@NO];
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:expectedPath
+                         forSessionConfiguration:nil
+                                           error:nil
+                   ];
+    
+    // then
+    XCTAssertFalse(result);
+    XCTAssertFalse(self.sut.isRecording);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertEqualObjects(self.sut.recordingPath, expectedPath);
+    
+    VERIFY_ALL
+}
+
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotDoesNotExist_createsDirectory {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    id expectedPath = @"expectedPath";
+    [OCMExpect([self.mockFileManager fileExistsAtPath:expectedPath]) andReturnValue:@NO];
+    
+    NSError* error = nil;
+    NSError* errorB = nil;
+    
+    [OCMExpect([self.mockFileManager createDirectoryAtPath:expectedPath
+                               withIntermediateDirectories:YES
+                                                attributes:nil
+                                                     error:[OCMArg setTo:errorB]]) andReturnValue:@YES];
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:expectedPath
+                         forSessionConfiguration:nil
+                                           error:&error
+                   ];
+    
+    // then
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertEqualObjects(self.sut.recordingPath, expectedPath);
+    
+    VERIFY_ALL
+}
+
 @end
