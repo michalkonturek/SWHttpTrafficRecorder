@@ -34,14 +34,9 @@ OCMVerifyAll((id)self.mockDate);\
 @interface SWHttpTrafficRecorder ()
 
 @property(nonatomic, assign, readwrite) BOOL isRecording;
-//@property(nonatomic, strong) NSString *recordingPath;
 @property (nonatomic, assign) int fileNo;
-//@property (nonatomic, assign) NSUInteger runTimeStamp;
 
-//@property (nonatomic, strong) NSOperationQueue *fileCreationQueue;
 @property (nonatomic, strong) NSURLSessionConfiguration* sessionConfig;
-
-//@property(nonatomic, strong) NSDictionary *fileExtensionMapping;
 
 // dependencies
 @property (nonatomic, strong) NSFileManager* fileManager;
