@@ -92,7 +92,7 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
                        error:(NSError **)error {
     
     if (!self.isRecording){
-//        if (recordingPath){
+        if (recordingPath){
 //            self.recordingPath = recordingPath;
 //            NSFileManager *fileManager = [NSFileManager defaultManager];
 //            if(![fileManager fileExistsAtPath:recordingPath]){
@@ -109,12 +109,12 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 //                }
 //                return NO;
 //            }
-//        } else {
-//            self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-//        }
-//
-//        self.fileNo = 0;
-//        self.runTimeStamp = (NSUInteger)[NSDate timeIntervalSinceReferenceDate];
+        } else {
+            self.recordingPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+        }
+
+        self.fileNo = 0;
+        self.runTimeStamp = (NSUInteger)[NSDate timeIntervalSinceReferenceDate];
     }
     
     if (sessionConfig){

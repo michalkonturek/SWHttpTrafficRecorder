@@ -29,16 +29,17 @@
 #define VERIFY_ALL \
 OCMVerifyAll((id)self.mockFileManager);\
 OCMVerifyAll((id)self.mockURLProtocol);\
+OCMVerifyAll((id)self.mockDate);\
 
 @interface SWHttpTrafficRecorder ()
 
-//@property(nonatomic, assign, readwrite) BOOL isRecording;
+@property(nonatomic, assign, readwrite) BOOL isRecording;
 //@property(nonatomic, strong) NSString *recordingPath;
 @property (nonatomic, assign) int fileNo;
 //@property (nonatomic, assign) NSUInteger runTimeStamp;
 
 //@property (nonatomic, strong) NSOperationQueue *fileCreationQueue;
-@property (nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
+@property (nonatomic, strong) NSURLSessionConfiguration* sessionConfig;
 
 //@property(nonatomic, strong) NSDictionary *fileExtensionMapping;
 
@@ -49,10 +50,11 @@ OCMVerifyAll((id)self.mockURLProtocol);\
 
 @interface SWHttpTrafficRecorderTests : XCTestCase
 
-@property (nonatomic, strong) SWHttpTrafficRecorder *sut;
+@property (nonatomic, strong) SWHttpTrafficRecorder* sut;
 
-@property (nonatomic, strong) NSFileManager *mockFileManager;
-@property (nonatomic, strong) NSURLProtocol *mockURLProtocol;
+@property (nonatomic, strong) NSFileManager* mockFileManager;
+@property (nonatomic, strong) NSURLProtocol* mockURLProtocol;
+@property (nonatomic, strong) NSDate* mockDate;
 
 @end
 
@@ -63,6 +65,7 @@ OCMVerifyAll((id)self.mockURLProtocol);\
     
     self.mockFileManager = OCMStrictClassMock([NSFileManager class]);
     self.mockURLProtocol = OCMClassMock([NSURLProtocol class]);
+    self.mockDate = OCMClassMock([NSDate class]);
     
     self.sut = [SWHttpTrafficRecorder sharedRecorder];
     self.sut.fileManager = self.mockFileManager;
@@ -70,6 +73,7 @@ OCMVerifyAll((id)self.mockURLProtocol);\
 
 - (void)tearDown {
     [(id)self.mockURLProtocol stopMocking];
+    [(id)self.mockDate stopMocking];
     
     [super tearDown];
 }
@@ -104,6 +108,10 @@ OCMVerifyAll((id)self.mockURLProtocol);\
 }
 
 - (void)test_startRecordingAtPath_whenRecording_andNoPathAndNoSession {
+    
+    // given
+    self.sut.isRecording = YES;
+    
     // expect
     OCMExpect([(id)self.mockURLProtocol registerClass:OCMOCK_ANY]);
     
@@ -122,6 +130,8 @@ OCMVerifyAll((id)self.mockURLProtocol);\
 - (void)test_startRecordingAtPath_whenRecording_andNoPath {
     
     // given
+    self.sut.isRecording = YES;
+    
     NSURLSessionConfiguration* stubSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     id stubURLProtocol = OCMStub([NSURLProtocol class]);
@@ -142,6 +152,43 @@ OCMVerifyAll((id)self.mockURLProtocol);\
     XCTAssertTrue(self.sut.sessionConfig.protocolClasses.count == 2);
     XCTAssertTrue(self.sut.sessionConfig.protocolClasses[0] == [SWRecordingProtocol class]);
     XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
+    
+    VERIFY_ALL
+}
+
+- (void)test_startRecordingAtPath_whenNotRecording_andNoPath {
+    
+    // given
+    self.sut.isRecording = NO;
+    
+    NSURLSessionConfiguration* stubSessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    id stubURLProtocol = OCMStub([NSURLProtocol class]);
+    id protocols = @[stubURLProtocol, stubURLProtocol];
+    stubSessionConfig.protocolClasses = protocols;
+    
+    // expect
+    NSTimeInterval expected = 1234;
+    [OCMExpect(ClassMethod([self.mockDate timeIntervalSinceReferenceDate])) andReturnValue:@(expected)];
+//    OCMStub(ClassMethod([dateMock timeIntervalSinceReferenceDate])).andReturn(NSTimeIntervalSince1970);
+    
+    // when
+    BOOL result = [self.sut startRecordingAtPath:nil
+                         forSessionConfiguration:stubSessionConfig
+                                           error:nil
+                   ];
+    
+    // then
+    XCTAssertTrue(result);
+    XCTAssertTrue(self.sut.isRecording);
+    
+    XCTAssertEqual(self.sut.sessionConfig, stubSessionConfig);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses.count == 2);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[0] == [SWRecordingProtocol class]);
+    XCTAssertTrue(self.sut.sessionConfig.protocolClasses[1] == stubURLProtocol);
+    
+    XCTAssertTrue(self.sut.fileNo == 0);
+    XCTAssertTrue(self.sut.runTimeStamp == expected);
+    XCTAssertTrue([self.sut.recordingPath hasSuffix:@"/data/Library/Caches"]);
     
     VERIFY_ALL
 }
