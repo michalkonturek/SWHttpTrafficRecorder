@@ -96,7 +96,7 @@ OCMVerifyAll((id)self.mockDate);\
     XCTAssertNotNil(self.sut.fileManager);
 }
 
-- (void)test_init_shouldUserDesignatedInitializer {
+- (void)test_init_shouldUseDesignatedInitializer {
     // given
     id sut = nil;
     BOOL didThrowException = NO;
@@ -298,7 +298,7 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotDoesNotExist_createsDirectory {
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButDoesNotExist_createsDirectory {
     
     // given
     self.sut.isRecording = NO;
@@ -330,7 +330,7 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotDoesNotExist_createsDirectoryWithError {
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButDoesNotExist_createsDirectoryWithError {
     
     // given
     self.sut.isRecording = NO;
@@ -367,7 +367,7 @@ OCMVerifyAll((id)self.mockDate);\
     VERIFY_ALL
 }
 
-- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButNotDoesNotExist_createsDirectoryWithError_noErrorGiven {
+- (void)test_startRecordingAtPath_whenNotRecording_andPathGivenButDoesNotExist_createsDirectoryWithError_noErrorGiven {
     
     // given
     self.sut.isRecording = NO;
