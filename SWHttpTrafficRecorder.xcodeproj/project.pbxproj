@@ -11,6 +11,8 @@
 		46A8AC6F1CDC9952009AFA26 /* SWHttpTrafficRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A8AC6E1CDC9952009AFA26 /* SWHttpTrafficRecorderTests.m */; };
 		46A8ACA41CDE0362009AFA26 /* SWHttpTrafficRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A8ACA21CDE0362009AFA26 /* SWHttpTrafficRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A8ACA61CDE0362009AFA26 /* SWHttpTrafficRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A8ACA31CDE0362009AFA26 /* SWHttpTrafficRecorder.m */; };
+		9C2CA8F0F616A221A27F9C34 /* libPods-SWHttpTrafficRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A59AD3F70D2DC813B83E23DF /* libPods-SWHttpTrafficRecorder.a */; };
+		EAA3C50BB167DE93D50246A8 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE250B31F7F8B95DECEF951 /* libPods-UnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +26,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3AE250B31F7F8B95DECEF951 /* libPods-UnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C12026DEFF50C23389B903E /* Pods-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3FF6811056FB982A1789E1DC /* Pods-SWHttpTrafficRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWHttpTrafficRecorder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SWHttpTrafficRecorder/Pods-SWHttpTrafficRecorder.debug.xcconfig"; sourceTree = "<group>"; };
 		46A8AC5F1CDC9952009AFA26 /* SWHttpTrafficRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SWHttpTrafficRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46A8AC641CDC9952009AFA26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46A8AC691CDC9952009AFA26 /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +36,9 @@
 		46A8AC701CDC9952009AFA26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46A8ACA21CDE0362009AFA26 /* SWHttpTrafficRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWHttpTrafficRecorder.h; sourceTree = "<group>"; };
 		46A8ACA31CDE0362009AFA26 /* SWHttpTrafficRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWHttpTrafficRecorder.m; sourceTree = "<group>"; };
+		750288EB042543BBFB43717C /* Pods-SWHttpTrafficRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWHttpTrafficRecorder.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWHttpTrafficRecorder/Pods-SWHttpTrafficRecorder.release.xcconfig"; sourceTree = "<group>"; };
+		A59AD3F70D2DC813B83E23DF /* libPods-SWHttpTrafficRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SWHttpTrafficRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06341A45BFD5D6C6B506FD7 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C2CA8F0F616A221A27F9C34 /* libPods-SWHttpTrafficRecorder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,18 +55,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				46A8AC6A1CDC9952009AFA26 /* SWHttpTrafficRecorder.framework in Frameworks */,
+				EAA3C50BB167DE93D50246A8 /* libPods-UnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03137D1A9D31B4746D7AC863 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A59AD3F70D2DC813B83E23DF /* libPods-SWHttpTrafficRecorder.a */,
+				3AE250B31F7F8B95DECEF951 /* libPods-UnitTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		46A8AC551CDC9952009AFA26 = {
 			isa = PBXGroup;
 			children = (
 				46A8AC611CDC9952009AFA26 /* SWHttpTrafficRecorder */,
 				46A8AC6D1CDC9952009AFA26 /* UnitTests */,
 				46A8AC601CDC9952009AFA26 /* Products */,
+				74D1AB9B67D6D8FCC0377C31 /* Pods */,
+				03137D1A9D31B4746D7AC863 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,6 +110,17 @@
 			path = UnitTests;
 			sourceTree = "<group>";
 		};
+		74D1AB9B67D6D8FCC0377C31 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3FF6811056FB982A1789E1DC /* Pods-SWHttpTrafficRecorder.debug.xcconfig */,
+				750288EB042543BBFB43717C /* Pods-SWHttpTrafficRecorder.release.xcconfig */,
+				3C12026DEFF50C23389B903E /* Pods-UnitTests.debug.xcconfig */,
+				F06341A45BFD5D6C6B506FD7 /* Pods-UnitTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -107,10 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46A8AC731CDC9952009AFA26 /* Build configuration list for PBXNativeTarget "SWHttpTrafficRecorder" */;
 			buildPhases = (
+				4915BF350A10522AB9341CD6 /* [CP] Check Pods Manifest.lock */,
 				46A8AC5A1CDC9952009AFA26 /* Sources */,
 				46A8AC5B1CDC9952009AFA26 /* Frameworks */,
 				46A8AC5C1CDC9952009AFA26 /* Headers */,
 				46A8AC5D1CDC9952009AFA26 /* Resources */,
+				5B994CB13AC1792898661821 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 46A8AC761CDC9952009AFA26 /* Build configuration list for PBXNativeTarget "UnitTests" */;
 			buildPhases = (
+				A0CC872A7A2E1E68AB3AC414 /* [CP] Check Pods Manifest.lock */,
 				46A8AC651CDC9952009AFA26 /* Sources */,
 				46A8AC661CDC9952009AFA26 /* Frameworks */,
 				46A8AC671CDC9952009AFA26 /* Resources */,
+				594B22014BCE0BC49558E5B6 /* [CP] Embed Pods Frameworks */,
+				D8002395D37B6D14B0EB080A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,6 +227,84 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4915BF350A10522AB9341CD6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		594B22014BCE0BC49558E5B6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5B994CB13AC1792898661821 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SWHttpTrafficRecorder/Pods-SWHttpTrafficRecorder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0CC872A7A2E1E68AB3AC414 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D8002395D37B6D14B0EB080A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		46A8AC5A1CDC9952009AFA26 /* Sources */ = {
@@ -317,6 +432,7 @@
 		};
 		46A8AC741CDC9952009AFA26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FF6811056FB982A1789E1DC /* Pods-SWHttpTrafficRecorder.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -333,6 +449,7 @@
 		};
 		46A8AC751CDC9952009AFA26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 750288EB042543BBFB43717C /* Pods-SWHttpTrafficRecorder.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -349,6 +466,7 @@
 		};
 		46A8AC771CDC9952009AFA26 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3C12026DEFF50C23389B903E /* Pods-UnitTests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -359,6 +477,7 @@
 		};
 		46A8AC781CDC9952009AFA26 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06341A45BFD5D6C6B506FD7 /* Pods-UnitTests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
