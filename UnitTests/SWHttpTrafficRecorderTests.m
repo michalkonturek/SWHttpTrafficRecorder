@@ -25,6 +25,10 @@
 
 #import "SWHttpTrafficRecorder.h"
 
+#define VERIFY_ALL \
+OCMVerifyAll((id)self.mockFileManager);\
+OCMVerifyAll((id)self.mockURLProtocol);\
+
 @interface SWHttpTrafficRecorder ()
 
 //@property(nonatomic, assign, readwrite) BOOL isRecording;
@@ -37,6 +41,9 @@
 
 //@property(nonatomic, strong) NSDictionary *fileExtensionMapping;
 
+// dependencies
+@property (nonatomic, strong) NSFileManager* fileManager;
+
 @end
 
 @interface SWHttpTrafficRecorderTests : XCTestCase
@@ -44,6 +51,7 @@
 @property (nonatomic, strong) SWHttpTrafficRecorder *sut;
 
 @property (nonatomic, strong) NSFileManager *mockFileManager;
+@property (nonatomic, strong) NSURLProtocol *mockURLProtocol;
 
 @end
 
@@ -52,7 +60,17 @@
 - (void)setUp {
     [super setUp];
     
+    self.mockFileManager = OCMStrictClassMock([NSFileManager class]);
+    self.mockURLProtocol = OCMClassMock([NSURLProtocol class]);
+    
     self.sut = [SWHttpTrafficRecorder sharedRecorder];
+    self.sut.fileManager = self.mockFileManager;
+}
+
+- (void)tearDown {
+    [(id)self.mockURLProtocol stopMocking];
+    
+    [super tearDown];
 }
 
 - (void)test_init_isSingleton {
@@ -85,10 +103,20 @@
 }
 
 - (void)test_startRecordingAtPath_whenNoPathAndNoSessionAndRecording {
+    // expect
+    OCMExpect([(id)self.mockURLProtocol registerClass:OCMOCK_ANY]);
     
+    // when
     BOOL result = [self.sut startRecordingAtPath:nil forSessionConfiguration:nil error:nil];
+    
+    // then
     XCTAssertTrue(result);
     XCTAssertTrue(self.sut.isRecording);
+    VERIFY_ALL
 }
+
+//- (void)test_startRecordingAtPath_whenNoPathAndNoSessionAndRecording {
+//    
+//}
 
 @end

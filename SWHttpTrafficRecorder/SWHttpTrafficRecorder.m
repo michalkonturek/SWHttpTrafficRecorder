@@ -121,7 +121,7 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 //        sessionConfig.protocolClasses = [mutableProtocols array];
     }
     else {
-//        [NSURLProtocol registerClass:[SWRecordingProtocol class]];
+        [NSURLProtocol registerClass:[SWRecordingProtocol class]];
     }
 
     self.isRecording = YES;
