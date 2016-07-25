@@ -399,6 +399,7 @@ OCMVerifyAll((id)self.mockDate);\
 }
 
 - (void)test_stopRecording_whenRecordingNotStarted {
+    
     // given
     XCTAssertFalse(self.sut.isRecording);
     
@@ -410,6 +411,7 @@ OCMVerifyAll((id)self.mockDate);\
 }
 
 - (void)test_stopRecording_whenRecording_andNoSessionGiven {
+    
     // given
     [self.sut startRecording];
     
@@ -425,6 +427,7 @@ OCMVerifyAll((id)self.mockDate);\
 }
 
 - (void)test_stopRecording_whenRecording_andSessionGiven {
+    
     // given
     self.sut.isRecording = YES;
     
