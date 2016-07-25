@@ -79,9 +79,14 @@ OCMVerifyAll((id)self.mockDate);\
     id first = [SWHttpTrafficRecorder sharedRecorder];
     id other = [SWHttpTrafficRecorder sharedRecorder];
     XCTAssertEqual(first, other);
+    [self assertInit];
 }
 
 - (void)test_init {
+    [self assertInit];
+}
+
+- (void)assertInit {
     XCTAssertFalse(self.sut.isRecording);
     XCTAssertTrue(self.sut.fileNo == 0);
     XCTAssertTrue(self.sut.runTimeStamp == 0);
