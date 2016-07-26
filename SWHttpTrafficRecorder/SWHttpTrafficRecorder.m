@@ -39,6 +39,9 @@ NSString * const SWHttpTrafficRecorderErrorDomain           = @"RECORDER_ERROR_D
 @property(nonatomic, assign) int fileNo;
 @property(nonatomic, strong) NSURLSessionConfiguration *sessionConfig;
 
+@property (nonatomic, assign, readwrite) NSUInteger runTimeStamp;
+@property (nonatomic, copy, readwrite) NSString *recordingPath;
+
 // dependencies
 @property (nonatomic, strong) NSFileManager* fileManager;
 

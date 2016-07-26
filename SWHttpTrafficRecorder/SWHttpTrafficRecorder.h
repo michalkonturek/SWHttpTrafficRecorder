@@ -199,14 +199,15 @@ FOUNDATION_EXPORT NSString * const SWHttpTrafficRecorderErrorDomain;
 @property(nonatomic, copy) NSString*(^createFileInCustomFormatBlock)(NSURLRequest *request, NSURLResponse *response, NSData *bodyData, NSString *filePath);
 
 
+/*
+ NOTE:
+ MK: the interface below had to be temporarily exposed until the next phase
+ */
+@property (nonatomic, assign, readonly) NSUInteger runTimeStamp;
+@property (nonatomic, copy, readonly) NSString *recordingPath;
+@property (nonatomic, strong, readonly) NSOperationQueue *fileCreationQueue;
 
-// EXPOSED
-@property (nonatomic, assign) NSUInteger runTimeStamp;
-@property (nonatomic, strong) NSString *recordingPath;
-@property (nonatomic, strong) NSOperationQueue *fileCreationQueue;
-//@property (nonatomic, strong) NSDictionary *fileExtensionMapping;
 - (NSDictionary *)fileExtensionMapping;
-
 - (int)increaseFileNo;
 
 @end
