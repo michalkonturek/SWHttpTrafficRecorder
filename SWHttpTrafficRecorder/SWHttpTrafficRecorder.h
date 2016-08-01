@@ -211,3 +211,6 @@ FOUNDATION_EXPORT NSString * const SWHttpTrafficRecorderErrorDomain;
 - (int)increaseFileNo;
 
 @end
+
+@interface SWRecordingProtocol : NSURLProtocol
+@end

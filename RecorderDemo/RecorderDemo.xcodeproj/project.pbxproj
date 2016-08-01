@@ -14,7 +14,6 @@
 		1DAE1B1A1BF38D47004D855F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DAE1B181BF38D47004D855F /* LaunchScreen.storyboard */; };
 		1DAE1B251BF38D47004D855F /* RecorderDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAE1B241BF38D47004D855F /* RecorderDemoTests.swift */; };
 		906CCC001D46AD9700C7D74F /* SWHttpTrafficRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 906CCBFD1D46AD9700C7D74F /* SWHttpTrafficRecorder.m */; };
-		906CCC011D46AD9700C7D74F /* SWRecordingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 906CCBFF1D46AD9700C7D74F /* SWRecordingProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +53,6 @@
 		1DAE1B2F1BF3BE2B004D855F /* RecorderDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RecorderDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		906CCBFC1D46AD9700C7D74F /* SWHttpTrafficRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWHttpTrafficRecorder.h; path = ../../SWHttpTrafficRecorder/SWHttpTrafficRecorder.h; sourceTree = "<group>"; };
 		906CCBFD1D46AD9700C7D74F /* SWHttpTrafficRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWHttpTrafficRecorder.m; path = ../../SWHttpTrafficRecorder/SWHttpTrafficRecorder.m; sourceTree = "<group>"; };
-		906CCBFE1D46AD9700C7D74F /* SWRecordingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRecordingProtocol.h; path = ../../SWHttpTrafficRecorder/SWRecordingProtocol.h; sourceTree = "<group>"; };
-		906CCBFF1D46AD9700C7D74F /* SWRecordingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRecordingProtocol.m; path = ../../SWHttpTrafficRecorder/SWRecordingProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +120,6 @@
 			children = (
 				906CCBFC1D46AD9700C7D74F /* SWHttpTrafficRecorder.h */,
 				906CCBFD1D46AD9700C7D74F /* SWHttpTrafficRecorder.m */,
-				906CCBFE1D46AD9700C7D74F /* SWRecordingProtocol.h */,
-				906CCBFF1D46AD9700C7D74F /* SWRecordingProtocol.m */,
 			);
 			name = SWHttpTrafficRecorder;
 			sourceTree = "<group>";
@@ -231,7 +226,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DAE1B121BF38D47004D855F /* ViewController.swift in Sources */,
-				906CCC011D46AD9700C7D74F /* SWRecordingProtocol.m in Sources */,
 				906CCC001D46AD9700C7D74F /* SWHttpTrafficRecorder.m in Sources */,
 				1DAE1B101BF38D47004D855F /* AppDelegate.swift in Sources */,
 			);

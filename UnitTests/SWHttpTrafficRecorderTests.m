@@ -24,7 +24,6 @@
 #import <OCMock/OCMock.h>
 
 #import "SWHttpTrafficRecorder.h"
-#import "SWRecordingProtocol.h"
 
 #define VERIFY_ALL \
 OCMVerifyAll((id)self.mockFileManager);\

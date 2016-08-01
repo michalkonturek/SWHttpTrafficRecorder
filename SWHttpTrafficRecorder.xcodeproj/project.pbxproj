@@ -11,8 +11,6 @@
 		46A8AC6F1CDC9952009AFA26 /* SWHttpTrafficRecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A8AC6E1CDC9952009AFA26 /* SWHttpTrafficRecorderTests.m */; };
 		46A8ACA41CDE0362009AFA26 /* SWHttpTrafficRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A8ACA21CDE0362009AFA26 /* SWHttpTrafficRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46A8ACA61CDE0362009AFA26 /* SWHttpTrafficRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A8ACA31CDE0362009AFA26 /* SWHttpTrafficRecorder.m */; };
-		90E845AC1D46827200B3D59C /* SWRecordingProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E845AA1D46827200B3D59C /* SWRecordingProtocol.h */; };
-		90E845AD1D46827200B3D59C /* SWRecordingProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E845AB1D46827200B3D59C /* SWRecordingProtocol.m */; };
 		9C2CA8F0F616A221A27F9C34 /* libPods-SWHttpTrafficRecorder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A59AD3F70D2DC813B83E23DF /* libPods-SWHttpTrafficRecorder.a */; };
 		EAA3C50BB167DE93D50246A8 /* libPods-UnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AE250B31F7F8B95DECEF951 /* libPods-UnitTests.a */; };
 /* End PBXBuildFile section */
@@ -39,8 +37,6 @@
 		46A8ACA21CDE0362009AFA26 /* SWHttpTrafficRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWHttpTrafficRecorder.h; sourceTree = "<group>"; };
 		46A8ACA31CDE0362009AFA26 /* SWHttpTrafficRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWHttpTrafficRecorder.m; sourceTree = "<group>"; };
 		750288EB042543BBFB43717C /* Pods-SWHttpTrafficRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SWHttpTrafficRecorder.release.xcconfig"; path = "Pods/Target Support Files/Pods-SWHttpTrafficRecorder/Pods-SWHttpTrafficRecorder.release.xcconfig"; sourceTree = "<group>"; };
-		90E845AA1D46827200B3D59C /* SWRecordingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRecordingProtocol.h; sourceTree = "<group>"; };
-		90E845AB1D46827200B3D59C /* SWRecordingProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRecordingProtocol.m; sourceTree = "<group>"; };
 		A59AD3F70D2DC813B83E23DF /* libPods-SWHttpTrafficRecorder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SWHttpTrafficRecorder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F06341A45BFD5D6C6B506FD7 /* Pods-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UnitTests/Pods-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,8 +96,6 @@
 			children = (
 				46A8ACA21CDE0362009AFA26 /* SWHttpTrafficRecorder.h */,
 				46A8ACA31CDE0362009AFA26 /* SWHttpTrafficRecorder.m */,
-				90E845AA1D46827200B3D59C /* SWRecordingProtocol.h */,
-				90E845AB1D46827200B3D59C /* SWRecordingProtocol.m */,
 				46A8AC641CDC9952009AFA26 /* Info.plist */,
 			);
 			path = SWHttpTrafficRecorder;
@@ -134,7 +128,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90E845AC1D46827200B3D59C /* SWRecordingProtocol.h in Headers */,
 				46A8ACA41CDE0362009AFA26 /* SWHttpTrafficRecorder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,7 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				46A8ACA61CDE0362009AFA26 /* SWHttpTrafficRecorder.m in Sources */,
-				90E845AD1D46827200B3D59C /* SWRecordingProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
